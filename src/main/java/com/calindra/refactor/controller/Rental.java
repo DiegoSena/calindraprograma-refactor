@@ -3,27 +3,27 @@ package com.calindra.refactor.controller;
 public class Rental {
 
   private Movie movie;
-  private int days;
+  private int daysRented;
 
-  public Rental(Movie movie, int days) {
+  public Rental(Movie movie, int daysRented) {
     this.movie = movie;
-    this.days = days;
+    this.daysRented = daysRented;
   }
-
 
   public Movie getMovie() {
     return movie;
   }
 
-  public void setMovie(Movie movie) {
-    this.movie = movie;
+  public int getDaysRented() {
+    return daysRented;
   }
 
-  public int getDays() {
-    return days;
+
+  public double getCharge() {
+    return movie.getCharge(getDaysRented());
   }
 
-  public void setDays(int days) {
-    this.days = days;
+  public int getFrequentRenterPoints() {
+    return movie.getFrequentRenterPoints(getDaysRented());
   }
 }

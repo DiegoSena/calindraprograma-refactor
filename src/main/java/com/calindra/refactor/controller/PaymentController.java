@@ -19,5 +19,11 @@ public class PaymentController {
     return customer.statement();
   }
 
+  @GetMapping("/{customerId}/objectStatement")
+  public StatementResponse getObjectStatement(@PathVariable String customerId) {
+    var customer = customerRepository.getCustomer(customerId);
+    return customer.objectStatement();
+  }
+
 
 }

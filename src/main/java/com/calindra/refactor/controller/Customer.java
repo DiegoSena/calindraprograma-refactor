@@ -7,7 +7,7 @@ public class Customer {
 
   private String name;
 
-  private List<Rental> rentalList = new ArrayList<>();
+  private List<Rental> rentals = new ArrayList<>();
 
   public Customer(String name) {
     this.name = name;
@@ -21,46 +21,44 @@ public class Customer {
     this.name = name;
   }
 
-  public void addRental(Rental r) {
-    this.rentalList.add(r);
+  public void addRental(Rental rental) {
+    this.rentals.add(rental);
   }
 
   public String statement() {
-    double totalAmount = 0.0;
-    int frequentRenterPoints = 0;
-    var rentals = rentalList;
-
     String result = "Registros de aluguéis de " + this.getName() + "\n";
-    for (Rental rental : rentals) {
-      double thisAmount = 0;
-
-      switch (rental.getMovie().getCode()) {
-        case Movie.REGULAR:
-          thisAmount += 2.0;
-          if (rental.getDays() > 2)
-            thisAmount += (rental.getDays() - 2) * 1.5;
-          break;
-        case Movie.NEW_RELEASE:
-          thisAmount += rental.getDays() * 3.0;
-          break;
-        case Movie.CHILDRENS:
-          thisAmount += 1.5;
-          if (rental.getDays() > 3)
-            thisAmount += (rental.getDays() - 3) * 1.5;
-          break;
-      }
-
-      frequentRenterPoints++;
-      if ((rental.getMovie().getCode() == Movie.NEW_RELEASE) && rental.getDays() > 1)
-        frequentRenterPoints++;
-
-      result += "\t" + rental.getMovie().getTitle() + "\t" + String.valueOf(thisAmount) + "\n";
-      totalAmount += thisAmount;
+    for (Rental rental : this.rentals) {
+      result += "\t" + rental.getMovie().getTitle() + "\t" + rental.getCharge() + "\n";
     }
 
-    result += "Total devido é " + totalAmount + "\n";
-    result += "Você ganhou " + frequentRenterPoints + " pontos no nosso programa de fidelidade";
+    result += "Total devido é " + getTotalCharge() + "\n";
+    result += "Você ganhou " + getTotalFrequentRenterPoints() + " pontos no nosso programa de fidelidade";
 
     return result;
   }
+
+  private int getTotalFrequentRenterPoints() {
+    int frequentRenterPoints = 0;
+    for (Rental rental : this.rentals) {
+      frequentRenterPoints += rental.getFrequentRenterPoints();
+    }
+    return frequentRenterPoints;
+  }
+
+  private double getTotalCharge() {
+    double amount = 0.0;
+    for (Rental rental : this.rentals) {
+      amount += rental.getCharge();
+    }
+    return amount;
+  }
+
+  public StatementResponse objectStatement() {
+    var statementResponse = new StatementResponse();
+    statementResponse.setCustomerName(this.getName());
+    statementResponse.setFrequentRenterPoints(getTotalFrequentRenterPoints());
+    statementResponse.setAmount(getTotalCharge());
+    return objectStatement();
+  }
+
 }

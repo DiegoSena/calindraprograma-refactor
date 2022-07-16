@@ -8,7 +8,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,7 +25,7 @@ class PaymentControllerTest {
     var customerId = "1";
     var customer = new Customer("diego");
 
-    var doctorStrange = new Movie("Doutor Estranho", Movie.NEW_RELEASE);
+    var doctorStrange = new NewReleaseMovie("Doutor Estranho");
     var doctorStrangeRental = new Rental(doctorStrange, 3);
     customer.addRental(doctorStrangeRental);
 

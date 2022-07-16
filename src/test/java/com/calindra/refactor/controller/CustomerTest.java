@@ -11,7 +11,7 @@ class CustomerTest {
   void statement() {
     var customer = new Customer("diego");
 
-    var doctorStrange = new Movie("Doutor Estranho", Movie.NEW_RELEASE);
+    var doctorStrange = new NewReleaseMovie("Doutor Estranho");
     var doctorStrangeRental = new Rental(doctorStrange, 3);
     customer.addRental(doctorStrangeRental);
 

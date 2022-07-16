@@ -12,18 +12,18 @@ public class CustomerRepository {
   public CustomerRepository() {
     var diego = new Customer("Diego");
 
-    var starWars = new Movie("Star Wars", Movie.REGULAR);
+    var starWars = new RegularMovie("Star Wars");
     var starWarsRental = new Rental(starWars, 3);
     diego.addRental(starWarsRental);
     customers.put("1", diego);
 
     var joao = new Customer("Joao");
 
-    var matrix = new Movie("Matrix", Movie.REGULAR);
+    var matrix = new RegularMovie("Matrix");
     var matrixRentral = new Rental(matrix, 2);
     joao.addRental(matrixRentral);
 
-    var toyStory = new Movie("Toy Story", Movie.CHILDRENS);
+    var toyStory = new ChildrenMovie("Toy Story");
     var toyStoryRental = new Rental(toyStory, 2);
     joao.addRental(toyStoryRental);
 
@@ -31,7 +31,7 @@ public class CustomerRepository {
 
     var guilherme = new Customer("Guilherme");
 
-    var doctorStrange = new Movie("Doutor Estranho", Movie.NEW_RELEASE);
+    var doctorStrange = new NewReleaseMovie("Doutor Estranho");
     var doctorStrangeRental = new Rental(doctorStrange, 3);
     guilherme.addRental(doctorStrangeRental);
 
